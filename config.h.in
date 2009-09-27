@@ -1,0 +1,31 @@
+/* Copyright 2009 Ralf Schmitt
+ *
+ * This file is part of volsort.
+ *
+ * volsort is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * volsort is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with volsort. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#define VOLSORT_VERSION "${VOLSORT_VERSION_MAJOR}.${VOLSORT_VERSION_MINOR}.${VOLSORT_VERSION_PATCH}"
+
+/* Default depth we use to fill volumes */
+#define VOLSORT_DEFAULT_DEPTH 1
+
+/* Default size of a volume (700mb) */
+#define VOLSORT_DEFAULT_CAPACITY 734003200
+
+/* Default free space that should remain on a volume (10mb) */
+#define VOLSORT_DEFAULT_FREESPACE 10485760
+
+/* Default volume prefix */
+#define VOLSORT_DEFAULT_PREFIX "VOLUME_"
