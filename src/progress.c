@@ -63,6 +63,6 @@ void progressUpdate(Progress * this, FsNode * fsn)
 
   if (this->verbose)
     commonPrintf("%.2d% \"%s\"\n",
-				(this->files_now/(this->files_total/100)),
-				strPtr(fsnGetName(fsn)));
+        (this->files_now/(this->files_total/100)),
+        strPtr(fsnGetName(fsn)));
 }

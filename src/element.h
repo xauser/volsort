@@ -26,10 +26,10 @@ typedef struct element Element;
 
 struct element
 {
-	VTable * pVTable;
+  VTable * pVTable;
 
-	Element * next;
-	Object * data;
+  Element * next;
+  Object * data;
 };
 
 void elemKill(bool dynamic, Element * this);

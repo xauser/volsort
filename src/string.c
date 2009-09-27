@@ -92,14 +92,14 @@ void strAppendCstr(String * this, char const * append)
 
 void strAppendUint32_t(String * this, uint32_t number)
 {
-	char tmp[255];
-	snprintf(tmp, 255, "%d", number);
-	strAppendCstr(this, tmp);
+  char tmp[255];
+  snprintf(tmp, 255, "%d", number);
+  strAppendCstr(this, tmp);
 }
 
 void strAppendint32_t(String * this, int32_t number)
 {
-	char tmp[255];
-	snprintf(tmp, 255, "%u", number);
-	strAppendCstr(this, tmp);
+  char tmp[255];
+  snprintf(tmp, 255, "%u", number);
+  strAppendCstr(this, tmp);
 }

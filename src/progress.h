@@ -28,16 +28,16 @@ typedef struct progress Progress;
 
 struct progress
 {
-	// members of obj
-	VTable *pVTable;
+  // members of obj
+  VTable *pVTable;
 
-	// our own members
-	uint64_t size_total;
-	uint64_t size_now;
-	uint32_t files_total;
-	uint32_t files_now;
-	time_t ts;
-	bool verbose;
+  // our own members
+  uint64_t size_total;
+  uint64_t size_now;
+  uint32_t files_total;
+  uint32_t files_now;
+  time_t ts;
+  bool verbose;
 };
 
 void progressKill(bool dynamic, Progress *this);

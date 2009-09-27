@@ -28,12 +28,12 @@ VTable VTableVolUnit[] =
 };
 
 VolUnit * vuCreate(
-		VolUnit * this,
-		Element * next,
-		char const * filename,
-		char const * name,
-		uint64_t size,
-		uint32_t volnr)
+    VolUnit * this,
+    Element * next,
+    char const * filename,
+    char const * name,
+    uint64_t size,
+    uint32_t volnr)
 {
   // check if we were called by a derived class
   if (this == 0)

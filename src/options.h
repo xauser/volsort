@@ -27,16 +27,16 @@ typedef struct options Options;
 
 struct options
 {
-	VTable * pVTable;
+  VTable * pVTable;
 
-	String * rootFolder;
-	String * rootName;
-	String * destFolder;
-	String * volumePrefix;
-	uint64_t volumeCapacity;
-	uint8_t packageDepth;
-	uint32_t extraSpace;
-	bool quiet;
+  String * rootFolder;
+  String * rootName;
+  String * destFolder;
+  String * volumePrefix;
+  uint64_t volumeCapacity;
+  uint8_t packageDepth;
+  uint32_t extraSpace;
+  bool quiet;
 };
 
 void opKill(bool dynamic, Options * this);

@@ -38,12 +38,12 @@ struct volunit
 };
 
 VolUnit * vuCreate(
-		VolUnit * this,
-		Element * next,
-		char const * filename,
-		char const * name,
-		uint64_t size,
-		uint32_t volnr);
+    VolUnit * this,
+    Element * next,
+    char const * filename,
+    char const * name,
+    uint64_t size,
+    uint32_t volnr);
 
 void vuKill(bool dynamic, VolUnit * this);
 

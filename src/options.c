@@ -211,6 +211,6 @@ bool opAreComplete(Options * this)
 
 void opPrintVersion(Options * this)
 {
-	commonPrintf("volsort %s (compiled %s)\n", VOLSORT_VERSION, __DATE__);
+  commonPrintf("volsort %s (compiled %s)\n", VOLSORT_VERSION, __DATE__);
   exit(EXIT_SUCCESS);
 }

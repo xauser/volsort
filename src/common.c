@@ -24,14 +24,14 @@ void commonPrint(char const * msg, va_list argp)
 {
   char tmp[1024];
   vsnprintf(tmp, 1024, msg, argp);
-	printf(tmp);
+  printf(tmp);
 }
 
 void commonPrintf(char const * msg, ...)
 {
   va_list ap;
   va_start(ap, msg);
-	commonPrint(msg, ap);
+  commonPrint(msg, ap);
   va_end(ap);
 }
 
@@ -40,7 +40,7 @@ void commonDebug(uint8_t level, char const * msg, ...)
 #ifdef DEBUG_ON
   va_list ap;
   va_start(ap, msg);
-	commonPrint(msg, ap);
+  commonPrint(msg, ap);
   va_end(ap);
 #endif
 }

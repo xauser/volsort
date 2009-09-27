@@ -41,10 +41,10 @@ struct fsn
 };
 
 FsNode * fsnCreate(
-		FsNode * this,
-		FsNode * parent,
-		char const * name,
-		char const * folder);
+    FsNode * this,
+    FsNode * parent,
+    char const * name,
+    char const * folder);
 
 void fsnKill(bool dynamic, FsNode * this);
 

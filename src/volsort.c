@@ -28,59 +28,59 @@
 
 int main(int argc, char * argv[])
 {
-	Options * options = opCreate(0);
-	opParse(options, argc, argv);
-	if (!opAreComplete(options))
-		exit(EXIT_SUCCESS);
+  Options * options = opCreate(0);
+  opParse(options, argc, argv);
+  if (!opAreComplete(options))
+    exit(EXIT_SUCCESS);
 
-	FsNode * fsn = fsnCreate(
-			0,
-			0,
-			"ROOT",
-			strPtr(opGetRootFolder(options)));
+  FsNode * fsn = fsnCreate(
+      0,
+      0,
+      "ROOT",
+      strPtr(opGetRootFolder(options)));
 
-	if (fsIsDir(strPtr(fsnGetFolder(fsn))))
-		fsnSetDir(fsn, TRUE);
-	else
-	{
-		commonPrintf("Not a directory %s\n", strPtr(fsnGetFolder(fsn)));
-		exit(EXIT_FAILURE);
-	}
+  if (fsIsDir(strPtr(fsnGetFolder(fsn))))
+    fsnSetDir(fsn, TRUE);
+  else
+  {
+    commonPrintf("Not a directory %s\n", strPtr(fsnGetFolder(fsn)));
+    exit(EXIT_FAILURE);
+  }
 
-	fsScanDir(fsn);
-	List * volumes = listCreate(0);
-	logicCreatePackages(fsn, volumes, options);
+  fsScanDir(fsn);
+  List * volumes = listCreate(0);
+  logicCreatePackages(fsn, volumes, options);
 
 #ifdef DEBUG_ON
-	commonPrintf("Scan root:       %s\n", strPtr(opGetRootFolder(options)));
-	if (opGetDestFolder(options))
-		commonPrintf("Dest dir:        %s\n", strPtr(opGetDestFolder(options)));
-	commonPrintf("Package depth:   %d\n", opGetDepth(options));
-	commonPrintf("Files:           %d\n", fsnCountAllFiles(fsn));
-	commonPrintf("Size:            %d mb\n", (fsnCountAllFileSizes(fsn)/1024/1024));
-	commonPrintf("Volume capacity: %d mb\n", (opGetCapacity(options)/1024/1024));
-	commonPrintf("Volume count:    %d\n", listSize(volumes));
-	commonPrintf("Wasted:          %d mb %d%\n", (int)(logicCountWastedSpace(volumes)/1024/1024),(int)(logicCountWastedSpace(volumes)/((opGetCapacity(options)*listSize(volumes))/100)));
+  commonPrintf("Scan root:       %s\n", strPtr(opGetRootFolder(options)));
+  if (opGetDestFolder(options))
+    commonPrintf("Dest dir:        %s\n", strPtr(opGetDestFolder(options)));
+  commonPrintf("Package depth:   %d\n", opGetDepth(options));
+  commonPrintf("Files:           %d\n", fsnCountAllFiles(fsn));
+  commonPrintf("Size:            %d mb\n", (fsnCountAllFileSizes(fsn)/1024/1024));
+  commonPrintf("Volume capacity: %d mb\n", (opGetCapacity(options)/1024/1024));
+  commonPrintf("Volume count:    %d\n", listSize(volumes));
+  commonPrintf("Wasted:          %d mb %d%\n", (int)(logicCountWastedSpace(volumes)/1024/1024),(int)(logicCountWastedSpace(volumes)/((opGetCapacity(options)*listSize(volumes))/100)));
 #endif
 
-	// setup progress verboser
-	Progress * progress = progressCreate(
-			0,
-			fsnCountAllFileSizes(fsn),
-			fsnCountAllFiles(fsn),
-			!opIsQuiet(options));
+  // setup progress verboser
+  Progress * progress = progressCreate(
+      0,
+      fsnCountAllFileSizes(fsn),
+      fsnCountAllFiles(fsn),
+      !opIsQuiet(options));
 
-	// copy files
-	if (opGetDestFolder(options) != NULL)
-		logicCopyVolumes(volumes, progress, options);
-	else
-		logicDumpVolumes(volumes);
+  // copy files
+  if (opGetDestFolder(options) != NULL)
+    logicCopyVolumes(volumes, progress, options);
+  else
+    logicDumpVolumes(volumes);
 
-	// clean up allocated memory
-	(* options->pVTable[0].pFunc) (TRUE, options);
-	(* volumes->pVTable[0].pFunc) (TRUE, volumes);
-	(* progress->pVTable[0].pFunc) (TRUE, progress);
-	(* fsn->pVTable[0].pFunc) (TRUE, fsn);
+  // clean up allocated memory
+  (* options->pVTable[0].pFunc) (TRUE, options);
+  (* volumes->pVTable[0].pFunc) (TRUE, volumes);
+  (* progress->pVTable[0].pFunc) (TRUE, progress);
+  (* fsn->pVTable[0].pFunc) (TRUE, fsn);
 
-	return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }
