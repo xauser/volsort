@@ -32,8 +32,6 @@ struct string
   char * data;
 };
 
-void pure_virtual_called_error_handler();
-
 void strKill(bool dynamic, String * this);
 
 String * strCreate(String * this, char const * data);
@@ -42,9 +40,9 @@ char const * strPtr(String * this);
 
 void strAppendCstr(String * this, char const * append);
 
-void strAppendUint32_t(String * this, uint32_t number);
+void strAppendUint32(String * this, uint32_t number);
 
-void strAppendint32_t(String * this, int32_t number);
+void strAppendInt32(String * this, int32_t number);
 
 size_t strSize(String * this);
 
@@ -52,7 +50,7 @@ char * strCopy(char * str);
 
 void strClear(String * this);
 
-void commonPrint(char const * msg, va_list argp);
+void strPrint(char const * msg, va_list argp);
 
 void strPrintf(char const * msg, ...);
 

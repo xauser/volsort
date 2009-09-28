@@ -4,10 +4,10 @@
 # using:
 #
 # CFLAGS="-std=c99 -D_GNU_SOURCE -pedantic -Wall"
-# set(CMAKE_VERBOSE_MAKEFILE 1)
 #
 cmake_minimum_required(VERSION 2.4)
 project(VOLSORT C)
+#set(CMAKE_VERBOSE_MAKEFILE 1)
 set(VOLSORT_VERSION_MAJOR 1)
 set(VOLSORT_VERSION_MINOR 0)
 set(VOLSORT_VERSION_PATCH 2)

@@ -93,21 +93,21 @@ void strAppendCstr(String * this, char const * append)
   strcat(this->data, append);
 }
 
-void strAppendUint32_t(String * this, uint32_t number)
+void strAppendUint32(String * this, uint32_t number)
 {
   char tmp[255];
   snprintf(tmp, 255, "%d", number);
   strAppendCstr(this, tmp);
 }
 
-void strAppendint32_t(String * this, int32_t number)
+void strAppendInt32(String * this, int32_t number)
 {
   char tmp[255];
   snprintf(tmp, 255, "%u", number);
   strAppendCstr(this, tmp);
 }
 
-void commonPrint(char const * msg, va_list argp)
+void strPrint(char const * msg, va_list argp)
 {
   char tmp[1024];
   vsnprintf(tmp, 1024, msg, argp);
@@ -118,6 +118,6 @@ void strPrintf(char const * msg, ...)
 {
   va_list ap;
   va_start(ap, msg);
-  commonPrint(msg, ap);
+  strPrint(msg, ap);
   va_end(ap);
 }

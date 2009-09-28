@@ -170,7 +170,7 @@ void logicCopyVolumes(List * volumes, Progress * progress, Options * options)
     String * volumeDir = strCreate(0, strPtr(opGetDestFolder(options)));
     strAppendCstr(volumeDir, "/");
     strAppendCstr(volumeDir, strPtr(opGetVolumePrefix(options)));
-    strAppendUint32_t(volumeDir, counter);
+    strAppendUint32(volumeDir, counter);
 
     // create the volume directory
 #ifdef DEBUG_LOGIC_ON
