@@ -26,7 +26,6 @@ VTable VTableObject[] =
 
 Object * objCreate(Object * this)
 {
-  // check if we were called by a derived class
   if (this == 0)
     this = (Object *) malloc(sizeof(Object));
 
@@ -34,7 +33,7 @@ Object * objCreate(Object * this)
   {
     this->pVTable = VTableObject;
 #ifdef DEBUG_OBJECTS_ON
-    commonPrintf("objCreate()\n");
+    strPrintf("objCreate()\n");
 #endif
   }
 
@@ -44,9 +43,8 @@ Object * objCreate(Object * this)
 void objKill(bool dynamic, Object * this)
 {
 #ifdef DEBUG_OBJECTS_ON
-  commonPrintf("~objKill()\n");
+  strPrintf("~objKill()\n");
 #endif
   this->pVTable = VTableObject;
-
   if (dynamic) free(this);
 }

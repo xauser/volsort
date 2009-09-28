@@ -32,11 +32,10 @@ List * listCreate(List * this)
   if (this)
   {
     objCreate((Object *) this);
-#ifdef DEBUG_OBJECTS_ON
-    commonPrintf("listCreate()\n");
-#endif
     this->pVTable = VTableList;
-
+#ifdef DEBUG_OBJECTS_ON
+    strPrintf("listCreate()\n");
+#endif
     this->first = 0;
     this->last = 0;
     this->list_size = 0;
@@ -48,7 +47,7 @@ List * listCreate(List * this)
 void listKill(bool dynamic, List * this)
 {
 #ifdef DEBUG_OBJECTS_ON
-  commonPrintf("~listKill()\n");
+  strPrintf("~listKill()\n");
 #endif
   this->pVTable = VTableList;
 

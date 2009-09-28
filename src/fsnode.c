@@ -32,10 +32,10 @@ FsNode * fsnCreate(FsNode * this, FsNode * parent, char const * name, char const
   if (this)
   {
     nodeCreate((Node *) this, (Node *) parent);
-#ifdef DEBUG_OBJECTS_ON
-    commonPrintf("fsnCreate(%s)\n", name);
-#endif
     this->pVTable = VTableFsNode;
+#ifdef DEBUG_OBJECTS_ON
+    strPrintf("fsnCreate(%s)\n", name);
+#endif
     this->name = strCreate(0, name);
     this->folder = strCreate(0, folder);
     this->isDir = 0;
@@ -48,15 +48,15 @@ FsNode * fsnCreate(FsNode * this, FsNode * parent, char const * name, char const
 void fsnKill(bool dynamic, FsNode * this)
 {
 #ifdef DEBUG_OBJECTS_ON
-  commonPrintf("~fsnKill(%s)\n", strPtr(this->name));
+  strPrintf("~fsnKill(%s)\n", strPtr(this->name));
 #endif
   this->pVTable = VTableFsNode;
 
-  // free our members
   strKill(TRUE, this->name);
   strKill(TRUE, this->folder);
 
   nodeKill(FALSE, (Node *) this);
+
   if (dynamic) free(this);
 }
 
@@ -68,16 +68,16 @@ void fsnAddChild(FsNode * this, FsNode * child)
 void fsnDump(FsNode * this)
 {
   // verbosing our direct info
-  commonPrintf("Name:            %s\n", strPtr(fsnGetName(this)));
+  strPrintf("Name:            %s\n", strPtr(fsnGetName(this)));
   if (this->parent != 0)
-    commonPrintf("Parent:          %s\n", strPtr(fsnGetFolder((FsNode *) this->parent)));
-  commonPrintf("Is dir:          %d\n", fsnIsDir(this));
-  commonPrintf("Folder:          %s\n", strPtr(fsnGetFolder(this)));
-  commonPrintf("Size Rec:        %lld mb\n", (fsnCountAllFileSizes(this)/1024/1024));
-  commonPrintf("Children direct: %d\n", listSize(nodeGetChildrenList((Node *) this)));
-  commonPrintf("Children all:    %d\n", nodeCountAllChildren((Node *) this));
-  commonPrintf("Depth:           %d\n", nodeGetDepth((Node *) this));
-  commonPrintf("Files:           %d\n", fsnCountAllFiles(this));
+    strPrintf("Parent:          %s\n", strPtr(fsnGetFolder((FsNode *) this->parent)));
+  strPrintf("Is dir:          %d\n", fsnIsDir(this));
+  strPrintf("Folder:          %s\n", strPtr(fsnGetFolder(this)));
+  strPrintf("Size Rec:        %lld mb\n", (fsnCountAllFileSizes(this)/1024/1024));
+  strPrintf("Children direct: %d\n", listSize(nodeGetChildrenList((Node *) this)));
+  strPrintf("Children all:    %d\n", nodeCountAllChildren((Node *) this));
+  strPrintf("Depth:           %d\n", nodeGetDepth((Node *) this));
+  strPrintf("Files:           %d\n", fsnCountAllFiles(this));
 }
 
 void fsnDumpChildren(FsNode * this, bool recursive)

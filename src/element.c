@@ -32,11 +32,10 @@ Element * elemCreate(Element * this, Object * data)
   if (this)
   {
     objCreate((Object *) this);
-#ifdef DEBUG_OBJECTS_ON
-    commonPrintf("elemCreate()\n");
-#endif
     this->pVTable = VTableElement;
-
+#ifdef DEBUG_OBJECTS_ON
+    strPrintf("elemCreate()\n");
+#endif
     this->data = data;
     this->next = 0;
   }
@@ -47,7 +46,7 @@ Element * elemCreate(Element * this, Object * data)
 void elemKill(bool dynamic, Element * this)
 {
 #ifdef DEBUG_OBJECTS_ON
-  commonPrintf("~elemKill()\n");
+  strPrintf("~elemKill()\n");
 #endif
   this->pVTable = VTableElement;
 

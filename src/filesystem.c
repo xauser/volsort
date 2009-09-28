@@ -40,22 +40,22 @@ int32_t fsCopyFile(char const * src, char const * dest)
   if ((inFh = open(src, O_RDONLY)) == -1)
   {
 #ifdef DEBUG_FILESYSTEM_ON
-    commonPrintf("open %s failed!\n",src);
+    strPrintf("open %s failed!\n",src);
 #endif
     switch(errno)
     {
       // pathname  already  exists  (not  necessarily  as  a directory)
       case EEXIST:
 #ifdef DEBUG_FILESYSTEM_ON
-        /*                commonPrintf("Error : %s\n",strerror(errno));*/
-        /*                commonPrintf("Error : %s\n",src);*/
+        /*                strPrintf("Error : %s\n",strerror(errno));*/
+        /*                strPrintf("Error : %s\n",src);*/
 #endif
         break;
         // pathname  points  outside  your  accessible address space.
       case EFAULT:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",src);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",src);
 #endif
         break;
         // The parent directory does not allow  write  permis-
@@ -63,38 +63,38 @@ int32_t fsCopyFile(char const * src, char const * dest)
         // pathname did not allow search (execute) permission.
       case EACCES:
 #ifdef DEBUG_FILESYSTEM_ON
-        /*                commonPrintf("Error : %s\n",strerror(errno));*/
-        /*                commonPrintf("Error : %s\n",src);*/
+        /*                strPrintf("Error : %s\n",strerror(errno));*/
+        /*                strPrintf("Error : %s\n",src);*/
 #endif
         break;
         // pathname was too long
       case ENAMETOOLONG:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",src);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",src);
 #endif
         break;
         // A directory component in pathname does not exist or
         // is a dangling symbolic link.
       case ENOENT:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",src);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",src);
 #endif
         break;
         // A component used as a directory in pathname is not,
         // in fact, a directory.
       case ENOTDIR:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",src);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",src);
 #endif
         break;
         // Insufficient kernel memory was available.
       case ENOMEM:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",src);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",src);
 #endif
         break;
     }
@@ -106,22 +106,22 @@ int32_t fsCopyFile(char const * src, char const * dest)
   if ((ouFh = open(dest, O_WRONLY | O_CREAT)) == -1)
   {
 #ifdef DEBUG_FILESYSTEM_ON
-    commonPrintf("open %s failed!\n",dest);
+    strPrintf("open %s failed!\n",dest);
 #endif
     switch(errno)
     {
       // pathname  already  exists  (not  necessarily  as  a directory)
       case EEXIST:
 #ifdef DEBUG_FILESYSTEM_ON
-        /*                commonPrintf("Error : %s\n",strerror(errno));*/
-        /*                commonPrintf("Error : %s\n",dest);*/
+        /*                strPrintf("Error : %s\n",strerror(errno));*/
+        /*                strPrintf("Error : %s\n",dest);*/
 #endif
         break;
         // pathname  points  outside  your  accessible address space.
       case EFAULT:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",dest);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",dest);
 #endif
         break;
         // The parent directory does not allow  write  permis-
@@ -129,38 +129,38 @@ int32_t fsCopyFile(char const * src, char const * dest)
         // pathname did not allow search (execute) permission.
       case EACCES:
 #ifdef DEBUG_FILESYSTEM_ON
-        /*                commonPrintf("Error : %s\n",strerror(errno));*/
-        /*                commonPrintf("Error : %s\n",dest);*/
+        /*                strPrintf("Error : %s\n",strerror(errno));*/
+        /*                strPrintf("Error : %s\n",dest);*/
 #endif
         break;
         // pathname was too long
       case ENAMETOOLONG:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",dest);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",dest);
 #endif
         break;
         // A directory component in pathname does not exist or
         // is a dangling symbolic link.
       case ENOENT:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",dest);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",dest);
 #endif
         break;
         // A component used as a directory in pathname is not,
         // in fact, a directory.
       case ENOTDIR:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",dest);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",dest);
 #endif
         break;
         // Insufficient kernel memory was available.
       case ENOMEM:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",dest);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",dest);
 #endif
         break;
     }
@@ -217,15 +217,15 @@ int32_t fsMkDir(char const * dir)
       // pathname  already  exists  (not  necessarily  as  a directory)
       case EEXIST:
 #ifdef DEBUG_FILESYSTEM_ON
-        /*                commonPrintf("Error : %s\n",strerror(errno));*/
-        /*                commonPrintf("Error : %s\n",dir);*/
+        /*                strPrintf("Error : %s\n",strerror(errno));*/
+        /*                strPrintf("Error : %s\n",dir);*/
 #endif
         break;
         // pathname  points  outside  your  accessible address space.
       case EFAULT:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",dir);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",dir);
 #endif
         break;
         // The parent directory does not allow  write  permis-
@@ -233,38 +233,38 @@ int32_t fsMkDir(char const * dir)
         // pathname did not allow search (execute) permission.
       case EACCES:
 #ifdef DEBUG_FILESYSTEM_ON
-        /*                commonPrintf("Error : %s\n",strerror(errno));*/
-        /*                commonPrintf("Error : %s\n",dir);*/
+        /*                strPrintf("Error : %s\n",strerror(errno));*/
+        /*                strPrintf("Error : %s\n",dir);*/
 #endif
         break;
         // pathname was too long
       case ENAMETOOLONG:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",dir);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",dir);
 #endif
         break;
         // A directory component in pathname does not exist or
         // is a dangling symbolic link.
       case ENOENT:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",dir);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",dir);
 #endif
         break;
         // A component used as a directory in pathname is not,
         // in fact, a directory.
       case ENOTDIR:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",dir);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",dir);
 #endif
         break;
         // Insufficient kernel memory was available.
       case ENOMEM:
 #ifdef DEBUG_FILESYSTEM_ON
-        commonPrintf("Error : %s\n",strerror(errno));
-        commonPrintf("Error : %s\n",dir);
+        strPrintf("Error : %s\n",strerror(errno));
+        strPrintf("Error : %s\n",dir);
 #endif
         break;
     }
@@ -289,7 +289,7 @@ bool fsIsDir(char const * elem)
   if (stat(elem, &attribut) == -1)
   {
 #ifdef DEBUG_FILESYSTEM_ON
-    commonPrintf("ERROR stat for %s\n", elem);
+    strPrintf("ERROR stat for %s\n", elem);
 #endif
     return EXIT_FAILURE;
   }
@@ -307,7 +307,7 @@ bool fsIsFile(char const * elem)
   if (stat(elem, &attribut) == -1)
   {
 #ifdef DEBUG_FILESYSTEM_ON
-    commonPrintf("2ERROR stat for %s\n",elem);
+    strPrintf("2ERROR stat for %s\n",elem);
 #endif
     return EXIT_FAILURE;
   }
@@ -325,7 +325,7 @@ uint64_t fsSize(char const * elem)
   if (stat(elem, &attribut) == -1)
   {
 #ifdef DEBUG_FILESYSTEM_ON
-    commonPrintf("ERROR stat for %s\n", elem);
+    strPrintf("ERROR stat for %s\n", elem);
 #endif
     return EXIT_FAILURE;
   }
@@ -338,7 +338,7 @@ uint64_t fsSize(char const * elem)
 void fsScanDir(FsNode *parent)
 {
 #ifdef DEBUG_FILESYSTEM_ON
-  commonPrintf("fsScanDir %s\n", strPtr(fsnGetFolder(parent)));
+  strPrintf("fsScanDir %s\n", strPtr(fsnGetFolder(parent)));
 #endif
 
   DIR * dirHandle;

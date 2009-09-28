@@ -24,7 +24,7 @@
 
 int32_t fsCopyFile(char const * src, char const * dest);
 
-int32_t fsMakeDir(char const * dir);
+int32_t fsMkDir(char const * dir);
 
 void fsMkDirP(char const * dir);
 

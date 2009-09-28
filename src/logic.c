@@ -21,7 +21,6 @@
 #include "volume.h"
 #include "filesystem.h"
 #include "progress.h"
-#include "common.h"
 #include <string.h>
 
 void logicCreatePackages(FsNode * fsn, List * volumes, Options * options)
@@ -39,7 +38,7 @@ void logicCreatePackages(FsNode * fsn, List * volumes, Options * options)
       {
 #ifdef DEBUG_LOGIC_ON
         fsnDump(fschild);
-        commonPrintf("[LOGIC-] ADD DIRECTORY    %s\n",
+        strPrintf("[LOGIC-] ADD DIRECTORY    %s\n",
             strPtr(fsnGetName(fschild)));
 #endif
         logicTakeFsNode(volumes, fschild, options);
@@ -49,7 +48,7 @@ void logicCreatePackages(FsNode * fsn, List * volumes, Options * options)
       {
 #ifdef DEBUG_LOGIC_ON
         fsnDump(fschild);
-        commonPrintf("[LOGIC-] ADD EMPTY DIRECTORY %s\n",
+        strPrintf("[LOGIC-] ADD EMPTY DIRECTORY %s\n",
             strPtr(fsnGetName(fschild)));
 #endif
         logicTakeFsNode(volumes, fschild, options);
@@ -59,7 +58,7 @@ void logicCreatePackages(FsNode * fsn, List * volumes, Options * options)
       {
 #ifdef DEBUG_LOGIC_ON
         fsnDump(fschild);
-        commonPrintf("[LOGIC-] GOING DOWN TO:   %s\n",
+        strPrintf("[LOGIC-] GOING DOWN TO:   %s\n",
             strPtr(fsnGetFolder(fschild)));
 #endif
         logicCreatePackages(fschild, volumes, options);
@@ -70,7 +69,7 @@ void logicCreatePackages(FsNode * fsn, List * volumes, Options * options)
       // always take file nodes
 #ifdef DEBUG_LOGIC_ON
       fsnDump(fschild);
-      commonPrintf("[LOGIC-] ADD FILE:        %s\n",
+      strPrintf("[LOGIC-] ADD FILE:        %s\n",
           strPtr(fsnGetName(fschild)));
 #endif
       logicTakeFsNode(volumes, fschild, options);
@@ -88,12 +87,12 @@ void logicTakeFsNode(List * volumes, FsNode * fsn, Options * options)
   // check for packages bigger then volume capacity
   if (fsnCountAllFileSizes(fsn) > (opGetCapacity(options) - opGetExtraSpace(options)))
   {
-    commonPrintf(
+    strPrintf(
         "'%s' (%d mb) does not fit into a %d mb volume\n",
         strPtr(fsnGetName(fsn)),
         (int)(fsnCountAllFileSizes(fsn)/1024/1024),
         opGetCapacity(options)/1024/1024);
-    commonPrintf("Try a higher package depth or increase volume capacity.\n");
+    strPrintf("Try a higher package depth or increase volume capacity.\n");
     exit(EXIT_SUCCESS);
   }
 
@@ -107,7 +106,7 @@ void logicTakeFsNode(List * volumes, FsNode * fsn, Options * options)
     if (volAddFsNode(vol, fsn))
     {
 #ifdef DEBUG_LOGIC_ON
-      commonPrintf("[LOGIC-] ADDED TO VOLUME: %d\n", counter);
+      strPrintf("[LOGIC-] ADDED TO VOLUME: %d\n", counter);
       volDump(vol);
 #endif
       inserted = TRUE;
@@ -127,7 +126,7 @@ void logicTakeFsNode(List * volumes, FsNode * fsn, Options * options)
     {
       listAppend(volumes, (Object *) newvol);
 #ifdef DEBUG_LOGIC_ON
-      commonPrintf("[LOGIC-] ADDED TO VOLUME: %d\n", listSize((List *) volumes));
+      strPrintf("[LOGIC-] ADDED TO VOLUME: %d\n", listSize((List *) volumes));
       volDump(newvol);
 #endif
     }
@@ -142,9 +141,9 @@ void logicDumpVolumes(List * volumes)
   while (elemIt)
   {
     counter++;
-    commonPrintf("------------------------\n",counter);
-    commonPrintf("VOLUME #%d      \n",counter);
-    commonPrintf("------------------------\n",counter);
+    strPrintf("------------------------\n",counter);
+    strPrintf("VOLUME #%d      \n",counter);
+    strPrintf("------------------------\n",counter);
     Volume * volume = (Volume *) elemData(elemIt);
     volDump(volume);
 #ifdef DEBUG_LOGIC_ON
@@ -175,7 +174,7 @@ void logicCopyVolumes(List * volumes, Progress * progress, Options * options)
 
     // create the volume directory
 #ifdef DEBUG_LOGIC_ON
-    commonPrintf("[LOGIC ] MKDIR %s\n", strPtr(volumeDir));
+    strPrintf("[LOGIC ] MKDIR %s\n", strPtr(volumeDir));
 #endif
     fsMkDir(strPtr(volumeDir));
 
@@ -209,7 +208,7 @@ void logicCopyPackage(FsNode * fsn, String * rootDir, String * volumeDir, Progre
 
   // create package directory in destination
 #ifdef DEBUG_LOGIC_ON
-  commonPrintf("[LOGIC ] MKDIR %s\n",strPtr(packageDestDir));
+  strPrintf("[LOGIC ] MKDIR %s\n",strPtr(packageDestDir));
 #endif
   fsMkDirP(strPtr(packageDestDir));
 
@@ -236,7 +235,7 @@ void logicCopyPackage(FsNode * fsn, String * rootDir, String * volumeDir, Progre
     strAppendCstr(copyDest, strPtr(fsnGetName(fsn)));
 
 #ifdef DEBUG_LOGIC_ON
-    commonPrintf("[LOGIC ] COPY %s TO %s\n", strPtr(copySource), strPtr(copyDest));
+    strPrintf("[LOGIC ] COPY %s TO %s\n", strPtr(copySource), strPtr(copyDest));
 #endif
 
     // copy file here

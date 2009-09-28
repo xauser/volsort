@@ -32,10 +32,10 @@ Progress * progressCreate(Progress * this, uint64_t size_total, uint32_t files_t
   if (this)
   {
     objCreate((Object *) this);
-#ifdef DEBUG_OBJECTS_ON
-    commonPrintf("progressCreate\n");
-#endif
     this->pVTable = VTableProgress;
+#ifdef DEBUG_OBJECTS_ON
+    strPrintf("progressCreate\n");
+#endif
     this->size_total = size_total;
     this->size_now = 0;
     this->files_total = files_total;
@@ -50,10 +50,12 @@ Progress * progressCreate(Progress * this, uint64_t size_total, uint32_t files_t
 void progressKill(bool dynamic, Progress * this)
 {
 #ifdef DEBUG_OBJECTS_ON
-  commonPrintf("progressKill\n");
+  strPrintf("progressKill\n");
 #endif
   this->pVTable = VTableProgress;
+
   objKill(FALSE, (Object *) this);
+
   if (dynamic) free(this);
 }
 
@@ -62,7 +64,7 @@ void progressUpdate(Progress * this, FsNode * fsn)
   this->files_now++;
 
   if (this->verbose)
-    commonPrintf("%.2d% \"%s\"\n",
+    strPrintf("%.2d% \"%s\"\n",
         (this->files_now/(this->files_total/100)),
         strPtr(fsnGetName(fsn)));
 }

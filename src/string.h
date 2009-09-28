@@ -20,6 +20,7 @@
 #ifndef STRING_H
 #define STRING_H
 
+#include <stdarg.h>
 #include "object.h"
 
 typedef struct string String;
@@ -27,6 +28,7 @@ typedef struct string String;
 struct string
 {
   VTable * pVTable;
+
   char * data;
 };
 
@@ -49,5 +51,9 @@ size_t strSize(String * this);
 char * strCopy(char * str);
 
 void strClear(String * this);
+
+void commonPrint(char const * msg, va_list argp);
+
+void strPrintf(char const * msg, ...);
 
 #endif

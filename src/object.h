@@ -20,7 +20,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-//#define DEBUG_OBJECTS_ON
+/* #define DEBUG_OBJECTS_ON */
 
 #include <stdlib.h>
 #include "types.h"
@@ -36,8 +36,8 @@ struct object
 
 struct vtable
 {
-  int d;
-  int i;
+  int32_t d;
+  int32_t i;
   VirtualFunctionPointer pFunc;
 };
 

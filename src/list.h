@@ -20,7 +20,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include "common.h"
 #include "element.h"
 
 typedef struct list List;

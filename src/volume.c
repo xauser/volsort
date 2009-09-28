@@ -34,7 +34,7 @@ Volume * volCreate(Volume * this, uint64_t capacity, uint32_t extraSpace)
   {
     objCreate((Object *) this);
 #ifdef DEBUG_OBJECTS_ON
-    commonPrintf("volCreate\n");
+    strPrintf("volCreate\n");
 #endif
     this->pVTable = VTableVolume;
 
@@ -50,7 +50,7 @@ Volume * volCreate(Volume * this, uint64_t capacity, uint32_t extraSpace)
 void volKill(bool dynamic, Volume * this)
 {
 #ifdef DEBUG_OBJECTS_ON
-  commonPrintf("volKill\n");
+  strPrintf("volKill\n");
 #endif
   this->pVTable = VTableVolume;
 
@@ -87,13 +87,13 @@ bool volAddFsNode(Volume * this, FsNode * fsn)
 
 void volDump(Volume * this)
 {
-  commonPrintf("Used space:      %d mb\n", (this->used_space/1024/1024));
-  commonPrintf("Free space:      %d mb\n", (volFreeSpace(this)/1024/1024));
-  commonPrintf("Extra space:     %d mb\n", (volExtraSpace(this)/1024/1024));
-  commonPrintf("Usage:           %d%\n", (this->used_space/(volCapacity(this)/100)));
-  commonPrintf("Packages:        %d\n", listSize(volPackageList(this)));
-  commonPrintf("Files:           %d\n", volCountFiles(this));
-  commonPrintf("Directories:     %d\n", volCountDir(this));
+  strPrintf("Used space:      %d mb\n", (this->used_space/1024/1024));
+  strPrintf("Free space:      %d mb\n", (volFreeSpace(this)/1024/1024));
+  strPrintf("Extra space:     %d mb\n", (volExtraSpace(this)/1024/1024));
+  strPrintf("Usage:           %d%\n", (this->used_space/(volCapacity(this)/100)));
+  strPrintf("Packages:        %d\n", listSize(volPackageList(this)));
+  strPrintf("Files:           %d\n", volCountFiles(this));
+  strPrintf("Directories:     %d\n", volCountDir(this));
 }
 
 uint64_t volCountFiles(Volume * this)
@@ -133,10 +133,10 @@ void volDumpFsNodes(Volume * this, bool recursive)
   while (elemIt)
   {
     counter++;
-    commonPrintf("-----------------------\n", counter);
-    commonPrintf("Package #%d\n", counter);
-    commonPrintf("-----------------------\n", counter);
-    FsNode * fsn = (FsNode *) elemData(elemIt);
+    strPrintf("-----------------------\n", counter);
+    strPrintf("Package #%d\n", counter);
+    strPrintf("-----------------------\n", counter);
+    FsNode * fsn = ((FsNode *) elemData(elemIt));
     fsnDump(fsn);
     if (recursive)
       fsnDumpChildren(fsn,TRUE);

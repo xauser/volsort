@@ -20,7 +20,6 @@
 #ifndef FSNODE_H
 #define FSNODE_H
 
-#include "common.h"
 #include "node.h"
 #include "string.h"
 

@@ -20,7 +20,7 @@
 #ifndef PROGRESS_H 
 #define PROGRESS_H
 
-#include "common.h"
+#include <time.h>
 #include "object.h"
 #include "fsnode.h"
 
@@ -28,10 +28,8 @@ typedef struct progress Progress;
 
 struct progress
 {
-  // members of obj
-  VTable *pVTable;
+  VTable * pVTable;
 
-  // our own members
   uint64_t size_total;
   uint64_t size_now;
   uint32_t files_total;
@@ -40,8 +38,10 @@ struct progress
   bool verbose;
 };
 
-void progressKill(bool dynamic, Progress *this);
-Progress *progressCreate(Progress *this, uint64_t size_total, uint32_t files_total, bool verbose);
-void progressUpdate(Progress *this, FsNode *fsn);
+void progressKill(bool dynamic, Progress * this);
+
+Progress * progressCreate(Progress * this, uint64_t size_total, uint32_t files_total, bool verbose);
+
+void progressUpdate(Progress * this, FsNode * fsn);
 
 #endif

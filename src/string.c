@@ -18,6 +18,7 @@
  */
 
 #include "string.h"
+#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -34,8 +35,9 @@ String * strCreate(String * this, char const * data)
   if (this)
   {
     objCreate((Object *) this);
+    this->pVTable = VTableString;
 #ifdef DEBUG_OBJECTS_ON
-    commonPrintf("strCreate(%s)\n", data);
+    strPrintf("strCreate(%s)\n", data);
 #endif
     this->data = strdup(data);
   }
@@ -46,11 +48,12 @@ String * strCreate(String * this, char const * data)
 void strKill(bool dynamic, String * this)
 {
 #ifdef DEBUG_OBJECTS_ON
-  commonPrintf("~strKill(%s)\n", strPtr(this));
+  strPrintf("~strKill(%s)\n", strPtr(this));
 #endif
   this->pVTable = VTableString;
 
   free(this->data);
+
   objKill(FALSE, (Object *) this);
 
   if (dynamic) free(this);
@@ -102,4 +105,19 @@ void strAppendint32_t(String * this, int32_t number)
   char tmp[255];
   snprintf(tmp, 255, "%u", number);
   strAppendCstr(this, tmp);
+}
+
+void commonPrint(char const * msg, va_list argp)
+{
+  char tmp[1024];
+  vsnprintf(tmp, 1024, msg, argp);
+  printf(tmp);
+}
+
+void strPrintf(char const * msg, ...)
+{
+  va_list ap;
+  va_start(ap, msg);
+  commonPrint(msg, ap);
+  va_end(ap);
 }

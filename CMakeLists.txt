@@ -1,3 +1,11 @@
+# CMake confiquration file of volsort
+#
+# The code was debugged against gcc 4.3.2
+# using:
+#
+# CFLAGS="-std=c99 -D_GNU_SOURCE -pedantic -Wall"
+# set(CMAKE_VERBOSE_MAKEFILE 1)
+#
 cmake_minimum_required(VERSION 2.4)
 project(VOLSORT C)
 set(VOLSORT_VERSION_MAJOR 1)

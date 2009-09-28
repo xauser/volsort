@@ -51,11 +51,10 @@ Options * opCreate(Options * this)
   if (this)
   {
     objCreate((Object *) this);
-#ifdef DEBUG_OBJECTS_ON
-    commonPrintf("opCreate()\n");
-#endif
     this->pVTable = VTableOptions;
-
+#ifdef DEBUG_OBJECTS_ON
+    strPrintf("opCreate()\n");
+#endif
     this->rootFolder = 0;
     this->destFolder = 0;
     this->volumePrefix = strCreate(0, VOLSORT_DEFAULT_PREFIX);
@@ -71,11 +70,14 @@ Options * opCreate(Options * this)
 void opKill(bool dynamic, Options * this)
 {
 #ifdef DEBUG_OBJECTS_ON
-  commonPrintf("~opKill()\n");
+  strPrintf("~opKill()\n");
 #endif
   this->pVTable = VTableOptions;
+
   strKill(TRUE, this->volumePrefix);
+
   objKill(FALSE, (Object *) this);
+
   if (dynamic) free(this);
 }
 
@@ -128,16 +130,16 @@ void opParse(Options * this, int argc, char * argv[])
 
 void opPrintUsage(Options * this)
 {
-  commonPrintf("Usage: volsort\n");
-  commonPrintf("  -s  --source-dir       source directory (mandatory)\n");
-  commonPrintf("  -t  --target-dir       target directory (this param starts copy)\n");
-  commonPrintf("  -d  --package-depth    depth in source dir to create packages (default %d)\n", opGetDepth(this));
-  commonPrintf("  -c  --volume-capacity  capacity of a volume (default %dmb)\n",(opGetCapacity(this)/1024/1024));
-  commonPrintf("  -f  --free-space       free space at the end of each volume (default %dmb)\n",(opGetExtraSpace(this)/1024/1024));
-  commonPrintf("  -p  --volume-prefix    prefix for volume name creation (default %s)\n",strPtr(opGetVolumePrefix(this)));
-  commonPrintf("  -q  --quiet            no verbose is done (default %d, off)\n",opIsQuiet(this));
-  commonPrintf("  -v  --version          version text of volsort\n");
-  commonPrintf("  -h  --help             this help\n");
+  strPrintf("Usage: volsort\n");
+  strPrintf("  -s  --source-dir       source directory (mandatory)\n");
+  strPrintf("  -t  --target-dir       target directory (this param starts copy)\n");
+  strPrintf("  -d  --package-depth    depth in source dir to create packages (default %d)\n", opGetDepth(this));
+  strPrintf("  -c  --volume-capacity  capacity of a volume (default %dmb)\n",(opGetCapacity(this)/1024/1024));
+  strPrintf("  -f  --free-space       free space at the end of each volume (default %dmb)\n",(opGetExtraSpace(this)/1024/1024));
+  strPrintf("  -p  --volume-prefix    prefix for volume name creation (default %s)\n",strPtr(opGetVolumePrefix(this)));
+  strPrintf("  -q  --quiet            no verbose is done (default %d, off)\n",opIsQuiet(this));
+  strPrintf("  -v  --version          version text of volsort\n");
+  strPrintf("  -h  --help             this help\n");
 }
 
 String * opGetRootFolder(Options * this)
@@ -181,36 +183,36 @@ bool opAreComplete(Options * this)
 
   if (this->rootFolder == NULL)
   {
-    commonPrintf("source folder is not set\n");
+    strPrintf("source folder is not set\n");
     valid = FALSE;
   }
 
   if (this->volumeCapacity <= 1024*1024)
   {
-    commonPrintf("capacity must be greater then 1mb\n");
+    strPrintf("capacity must be greater then 1mb\n");
     valid = FALSE;
   }
 
   if (this->volumeCapacity < this->extraSpace)
   {
-    commonPrintf("free space is bigger then capacity\n");
+    strPrintf("free space is bigger then capacity\n");
     valid = FALSE;
   }
 
   if (this->packageDepth < 0)
   {
-    commonPrintf("package depth must be greater or equal 0\n");
+    strPrintf("package depth must be greater or equal 0\n");
     valid = FALSE;
   }
 
   if (!valid)
-    commonPrintf("try -h for usage\n");
+    strPrintf("try -h for usage\n");
 
   return valid;
 }
 
 void opPrintVersion(Options * this)
 {
-  commonPrintf("volsort %s (compiled %s)\n", VOLSORT_VERSION, __DATE__);
+  strPrintf("volsort %s (compiled %s)\n", VOLSORT_VERSION, __DATE__);
   exit(EXIT_SUCCESS);
 }

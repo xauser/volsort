@@ -18,6 +18,7 @@
  */
 
 #include "node.h"
+#include "string.h"
 
 VTable VTableNode[] =
 {
@@ -32,11 +33,10 @@ Node * nodeCreate(Node * this, Node * parent)
   if (this)
   {
     objCreate((Object *) this);
-#ifdef DEBUG_OBJECTS_ON
-    commonPrintf("nodeCreate()\n");
-#endif
     this->pVTable = VTableNode;
-
+#ifdef DEBUG_OBJECTS_ON
+    strPrintf("nodeCreate()\n");
+#endif
     this->parent = parent;
     this->children = (List *) listCreate(0);
     this->depth = 0;
@@ -45,35 +45,33 @@ Node * nodeCreate(Node * this, Node * parent)
   return this;
 }
 
-void nodeKill(bool dynamic, Node *this)
+void nodeKill(bool dynamic, Node * this)
 {
 #ifdef DEBUG_OBJECTS_ON
-  commonPrintf("~nodeKill()\n");
+  strPrintf("~nodeKill()\n");
 #endif
   this->pVTable = VTableNode;
 
-  // destructing list members (children)
   Element * elemIt = listFirst(nodeGetChildrenList(this));
   while (elemIt)
   {
-    Node *node = (Node *) elemData(elemIt);
+    Node * node = (Node *) elemData(elemIt);
     (* node->pVTable[0].pFunc) (TRUE, node);
     elemIt = elemNext(elemIt);
   }
-
-  // destructing list itself
   (* nodeGetChildrenList(this)->pVTable[0].pFunc) (TRUE, nodeGetChildrenList(this));
 
   objKill(FALSE, (Object *) this);
+
   if (dynamic) free(this);
 }
 
 void nodeDump(Node * this)
 {
-  commonPrintf("DEPTH            %d\n", nodeGetDepth(this));
-  commonPrintf("CHILDREN COUNT   %d\n", listSize(nodeGetChildrenList(this)));
+  strPrintf("DEPTH            %d\n", nodeGetDepth(this));
+  strPrintf("CHILDREN COUNT   %d\n", listSize(nodeGetChildrenList(this)));
   if (nodeGetParent(this) == 0)
-    commonPrintf("TYPE             ROOT NODE\n");
+    strPrintf("TYPE             ROOT NODE\n");
 }
 
 Node * nodeGetParent(Node * this)
